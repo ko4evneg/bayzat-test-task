@@ -24,13 +24,12 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "api/v1/currencies")
 @RequiredArgsConstructor
-public class CurrencyController {
+public class CurrencyController extends EntityController<Currency, CurrencyTo> {
     private final CurrencyService currencyService;
-    private final ModelMapper mapper;
 
     @GetMapping
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(mapFromEntity(currencyService.findAll()));
+        return ResponseEntity.ok(mapFromEntity(currencyService.findAll(), CurrencyTo.class));
     }
 
     @GetMapping("{id}")
@@ -40,19 +39,19 @@ public class CurrencyController {
 
     @PostMapping
     public ResponseEntity<?> saveNew(@RequestBody CurrencyTo currencyTo) {
-        Currency savedCurrency = currencyService.saveNew(mapToEntity(currencyTo));
+        Currency savedCurrency = currencyService.saveNew(mapToEntity(currencyTo, Currency.class));
         return getOkResponse(savedCurrency);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<?> save(@RequestBody CurrencyTo currencyTo, @PathVariable Long id) {
-        Currency savedCurrency = currencyService.save(mapToEntity(currencyTo), id);
+        Currency savedCurrency = currencyService.save(mapToEntity(currencyTo, Currency.class), id);
         return getOkResponse(savedCurrency);
     }
 
     @PatchMapping("{id}")
     public ResponseEntity<?> update(@RequestBody CurrencyTo currencyTo, @PathVariable Long id) {
-        Currency savedCurrency = currencyService.update(mapToEntity(currencyTo), id);
+        Currency savedCurrency = currencyService.update(mapToEntity(currencyTo, Currency.class), id);
         return getOkResponse(savedCurrency);
     }
 
@@ -63,21 +62,7 @@ public class CurrencyController {
     }
 
     private ResponseEntity<CurrencyTo> getOkResponse(Currency savedCurrency) {
-        return ResponseEntity.ok(mapFromEntity(savedCurrency));
-    }
-
-    private List<CurrencyTo> mapFromEntity(Collection<Currency> currencyToCollection) {
-        return currencyToCollection.stream()
-                .map(this::mapFromEntity)
-                .toList();
-    }
-
-    private Currency mapToEntity(CurrencyTo currencyTo) {
-        return mapper.map(currencyTo, Currency.class);
-    }
-
-    private CurrencyTo mapFromEntity(Currency currency) {
-        return mapper.map(currency, CurrencyTo.class);
+        return ResponseEntity.ok(mapFromEntity(savedCurrency, CurrencyTo.class));
     }
 }
 
