@@ -1,11 +1,17 @@
 package com.bayzat.cryptotracker.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @MappedSuperclass
 public class BaseNamedEntity {
     @Column(name = "id")
@@ -20,35 +26,8 @@ public class BaseNamedEntity {
     @CreationTimestamp
     protected Date createdAt;
 
-    public BaseNamedEntity() {
-    }
-
     public BaseNamedEntity(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override

@@ -1,11 +1,18 @@
 package com.bayzat.cryptotracker.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
 public class User extends BaseNamedEntity {
     @ManyToMany
     @JoinTable(name = "user_role",
@@ -13,19 +20,8 @@ public class User extends BaseNamedEntity {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> role = new HashSet<>();
 
-    public User() {
-    }
-
     public User(String name, Set<Role> role) {
         super(name);
-        this.role = role;
-    }
-
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
         this.role = role;
     }
 

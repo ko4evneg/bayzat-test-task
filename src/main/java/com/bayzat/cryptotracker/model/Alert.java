@@ -1,16 +1,26 @@
 package com.bayzat.cryptotracker.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "alerts")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Alert extends BaseNamedEntity {
-    public Alert() {
-    }
-
     public Alert(String name, Currency currency, User user, BigDecimal targetPrice, AlertStatus status) {
         super(name);
         this.currency = currency;
@@ -32,38 +42,6 @@ public class Alert extends BaseNamedEntity {
 
     @Enumerated(value = EnumType.STRING)
     private AlertStatus status;
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
-    public BigDecimal getTargetPrice() {
-        return targetPrice;
-    }
-
-    public void setTargetPrice(BigDecimal targetPrice) {
-        this.targetPrice = targetPrice;
-    }
-
-    public AlertStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(AlertStatus status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public boolean equals(Object o) {
