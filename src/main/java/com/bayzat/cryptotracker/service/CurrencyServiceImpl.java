@@ -3,6 +3,7 @@ package com.bayzat.cryptotracker.service;
 import com.bayzat.cryptotracker.exception.ResourceNotFoundException;
 import com.bayzat.cryptotracker.model.Currency;
 import com.bayzat.cryptotracker.repository.CurrencyRepository;
+import com.bayzat.cryptotracker.service.validation.CurrencyValidator;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository currencyRepository;
     private final ModelMapper mapper;
+    private final CurrencyValidator validator;
 
     @Override
     public List<Currency> findAll() {
@@ -29,6 +31,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public Currency saveNew(Currency currency) {
+        validator.validate(currency);
         return currencyRepository.save(currency);
     }
 
@@ -37,7 +40,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         findIfExists(id);
         currency.setId(id);
         currency.setCreatedAt(new Date());
-        return currencyRepository.save(currency);
+        return saveNew(currency);
     }
 
     @Override

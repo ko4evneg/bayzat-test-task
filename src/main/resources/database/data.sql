@@ -1,6 +1,5 @@
 INSERT INTO currencies (name, symbol, current_price, enabled, created_at)
 VALUES ('Bitcoin', 'BTC', 19139.22, true, CURRENT_TIMESTAMP),
-       ('Ethereum', 'ETH', 1286.12, true, CURRENT_TIMESTAMP),
        ('Tether', 'USDT', 1.0, true, CURRENT_TIMESTAMP),
        ('USD Coin', 'USDC', 0.9998, true, CURRENT_TIMESTAMP),
        ('BNB', 'BNB', 271.72, true, CURRENT_TIMESTAMP),
