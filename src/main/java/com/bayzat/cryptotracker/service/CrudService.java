@@ -1,20 +1,19 @@
 package com.bayzat.cryptotracker.service;
 
 import com.bayzat.cryptotracker.model.BaseNamedEntity;
-import com.bayzat.cryptotracker.model.Currency;
 
 import java.util.List;
 
-public interface CrudService<T extends BaseNamedEntity> {
-    List<T> findAll();
+public interface CrudService<E extends BaseNamedEntity> {
+    List<E> findAll();
 
-    T find(Long id);
+    E find(Long id);
 
-    T saveNew(T currency);
+    E saveNew(E currency);
 
-    T save(T currency, Long id);
+    E save(E currency, Long id);
 
-    T update(T currency, Long id);
+    E update(E currency, Long id);
 
     void delete(Long id);
 }
