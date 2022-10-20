@@ -30,7 +30,7 @@ public class Currency extends BaseNamedEntity {
     private BigDecimal currentPrice;
 
     @Column(name = "enabled")
-    private boolean enabled;
+    private Boolean enabled;
 
     @Override
     public boolean equals(Object o) {
