@@ -35,8 +35,8 @@ class CryptoTrackerApplicationTests {
     void initialSqlScriptsMappedToModelSuccess() {
         Role expectedRole = new Role("ADMIN");
         User expectedUser = new User("testUser", Set.of(expectedRole));
-        Currency expectedCurrency = new Currency("BitCoin", "BTC",
-                new BigDecimal("123456789.123456789".toCharArray()), true);
+        Currency expectedCurrency = new Currency("TestCoin", "TTC",
+                new BigDecimal("123456789.123456".toCharArray()), true);
         Alert expectedAlert = new Alert("testAlert", expectedCurrency, expectedUser,
                 new BigDecimal("200.500".toCharArray()), AlertStatus.NEW);
 

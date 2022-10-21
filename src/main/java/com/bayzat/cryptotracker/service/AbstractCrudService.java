@@ -2,6 +2,7 @@ package com.bayzat.cryptotracker.service;
 
 import com.bayzat.cryptotracker.exception.ResourceNotFoundException;
 import com.bayzat.cryptotracker.model.BaseNamedEntity;
+import com.bayzat.cryptotracker.model.to.BaseNamedTo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 import java.util.List;
 
-public abstract class AbstractCrudService<E extends BaseNamedEntity> implements CrudService<E> {
+public abstract class AbstractCrudService<E extends BaseNamedEntity, T extends BaseNamedTo> implements CrudService<E, T> {
     protected JpaRepository<E, Long> repository;
     @Autowired
     protected ModelMapper mapper;
