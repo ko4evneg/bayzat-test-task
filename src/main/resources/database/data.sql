@@ -9,7 +9,11 @@ VALUES ('Bitcoin', 'BTC', 19139.22, true, CURRENT_TIMESTAMP),
        ('TRON', 'TRN', 0.06199, true, CURRENT_TIMESTAMP),
        ('Avalanche', 'AVAX', 15.21, true, CURRENT_TIMESTAMP);
 
-INSERT INTO users (name, created_at)
-VALUES ('ADMIN', CURRENT_TIMESTAMP),
-       ('USER', CURRENT_TIMESTAMP);
+INSERT INTO users (username, password, created_at)
+VALUES ('user1', 'pwd1', CURRENT_TIMESTAMP),
+       ('user2', 'pwd2',  CURRENT_TIMESTAMP),
+       ('user3', 'pwd3',  CURRENT_TIMESTAMP),
+       ('admin', 'pwd4',  CURRENT_TIMESTAMP);
 
+INSERT INTO alerts (name, currency_id, user_id, target_price, status, created_at)
+VALUES ('BTC alert', 1, 2, 20139, 'NEW', CURRENT_TIMESTAMP);

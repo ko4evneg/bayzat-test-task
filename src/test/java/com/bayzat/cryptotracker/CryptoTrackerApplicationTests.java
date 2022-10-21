@@ -2,7 +2,7 @@ package com.bayzat.cryptotracker;
 
 import com.bayzat.cryptotracker.model.Alert;
 import com.bayzat.cryptotracker.model.AlertStatus;
-import com.bayzat.cryptotracker.model.BaseNamedEntity;
+import com.bayzat.cryptotracker.model.BaseEntity;
 import com.bayzat.cryptotracker.model.Currency;
 import com.bayzat.cryptotracker.model.Role;
 import com.bayzat.cryptotracker.model.User;
@@ -34,7 +34,7 @@ class CryptoTrackerApplicationTests {
     @Test
     void initialSqlScriptsMappedToModelSuccess() {
         Role expectedRole = new Role("ADMIN");
-        User expectedUser = new User("testUser", Set.of(expectedRole));
+        User expectedUser = new User("testUser", "pwd", Set.of(expectedRole));
         Currency expectedCurrency = new Currency("TestCoin", "TTC",
                 new BigDecimal("123456789.123456".toCharArray()), true);
         Alert expectedAlert = new Alert("testAlert", expectedCurrency, expectedUser,
@@ -58,12 +58,12 @@ class CryptoTrackerApplicationTests {
         assertEquals(expectedRole, actualRole);
     }
 
-    private <T extends BaseNamedEntity> void saveAndUpdateId(T entity, CrudRepository<T, Long> repository) {
+    private <T extends BaseEntity> void saveAndUpdateId(T entity, CrudRepository<T, Long> repository) {
         Long roleId = repository.save(entity).getId();
         entity.setId(roleId);
     }
 
-    private  <T extends BaseNamedEntity> T getActualEntityFromRepository(T entity, CrudRepository<T, Long> repository) {
+    private  <T extends BaseEntity> T getActualEntityFromRepository(T entity, CrudRepository<T, Long> repository) {
         return repository
                 .findById(entity.getId())
                 .orElseThrow(() -> new RuntimeException(entity.getClass().getSimpleName() + " was not retrieved!"));

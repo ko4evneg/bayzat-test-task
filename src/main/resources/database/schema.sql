@@ -9,8 +9,8 @@ CREATE TABLE currencies
 (
     id            SERIAL PRIMARY KEY,
     name          VARCHAR(100) UNIQUE      NOT NULL,
-    symbol        VARCHAR(10) UNIQUE           NOT NULL,
-    current_price DECIMAL(20, 6)          NOT NULL,
+    symbol        VARCHAR(10) UNIQUE       NOT NULL,
+    current_price DECIMAL(20, 6)           NOT NULL,
     enabled       BOOLEAN                  NOT NULl,
     created_at    TIMESTAMP WITH TIME ZONE NOT NULL
 );
@@ -25,7 +25,8 @@ CREATE TABLE roles
 CREATE TABLE users
 (
     id         SERIAL PRIMARY KEY,
-    name       VARCHAR(100) UNIQUE      NOT NULL,
+    username   VARCHAR(100) UNIQUE      NOT NULL,
+    password   VARCHAR(100)             NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
