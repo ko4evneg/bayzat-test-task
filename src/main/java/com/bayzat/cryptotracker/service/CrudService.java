@@ -1,11 +1,11 @@
 package com.bayzat.cryptotracker.service;
 
-import com.bayzat.cryptotracker.model.BaseNamedEntity;
-import com.bayzat.cryptotracker.model.to.BaseNamedTo;
+import com.bayzat.cryptotracker.model.BaseEntity;
+import com.bayzat.cryptotracker.model.to.BaseTo;
 
 import java.util.List;
 
-public interface CrudService<E extends BaseNamedEntity, T extends BaseNamedTo> {
+public interface CrudService<E extends BaseEntity, T extends BaseTo> {
     List<E> findAll();
 
     E find(Long id);

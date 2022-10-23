@@ -1,8 +1,9 @@
 package com.bayzat.cryptotracker.service;
 
+import com.bayzat.cryptotracker.exception.CryptoTrackerException;
 import com.bayzat.cryptotracker.exception.ResourceNotFoundException;
-import com.bayzat.cryptotracker.model.BaseNamedEntity;
-import com.bayzat.cryptotracker.model.to.BaseNamedTo;
+import com.bayzat.cryptotracker.model.BaseEntity;
+import com.bayzat.cryptotracker.model.to.BaseTo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 import java.util.List;
 
-public abstract class AbstractCrudService<E extends BaseNamedEntity, T extends BaseNamedTo> implements CrudService<E, T> {
+public abstract class AbstractCrudService<E extends BaseEntity, T extends BaseTo> implements CrudService<E, T> {
     protected JpaRepository<E, Long> repository;
     @Autowired
     protected ModelMapper mapper;
@@ -50,6 +51,16 @@ public abstract class AbstractCrudService<E extends BaseNamedEntity, T extends B
     public void delete(Long id) {
         findIfExists(id);
         repository.deleteById(id);
+    }
+
+    @Override
+    public Class<T> getToType() {
+        throw new CryptoTrackerException("Operation not supported!");
+    }
+
+    @Override
+    public Class<E> getEntityType() {
+        throw new CryptoTrackerException("Operation not supported!");
     }
 
     private E findIfExists(Long id) {

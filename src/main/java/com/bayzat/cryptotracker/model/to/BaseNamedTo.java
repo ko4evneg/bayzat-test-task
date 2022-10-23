@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BaseNamedTo {
+public class BaseNamedTo implements BaseTo {
     protected String name;
 }
