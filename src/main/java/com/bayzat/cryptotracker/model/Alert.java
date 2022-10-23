@@ -28,11 +28,12 @@ import static com.bayzat.cryptotracker.model.AlertStatus.TRIGGERED;
 @Setter
 @NoArgsConstructor
 public class Alert extends BaseNamedEntity implements OwnedEntity {
-    public Alert(String name, Currency currency, User user, BigDecimal targetPrice, AlertStatus status) {
+    public Alert(String name, Currency currency, User user, BigDecimal targetPrice, Boolean upperDirection, AlertStatus status) {
         super(name);
         this.currency = currency;
         this.user = user;
         this.targetPrice = targetPrice;
+        this.upperDirection = upperDirection;
         this.status = status;
     }
 

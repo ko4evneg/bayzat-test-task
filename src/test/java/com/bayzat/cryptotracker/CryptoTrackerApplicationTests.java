@@ -38,7 +38,7 @@ class CryptoTrackerApplicationTests {
         Currency expectedCurrency = new Currency("TestCoin", "TTC",
                 new BigDecimal("123456789.123456".toCharArray()), true);
         Alert expectedAlert = new Alert("testAlert", expectedCurrency, expectedUser,
-                new BigDecimal("200.500".toCharArray()), AlertStatus.NEW);
+                new BigDecimal("200.500".toCharArray()), true, AlertStatus.NEW);
 
         saveAndUpdateId(expectedRole, roleRepository);
         saveAndUpdateId(expectedCurrency, currencyRepository);
