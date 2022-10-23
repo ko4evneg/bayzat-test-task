@@ -1,5 +1,6 @@
 package com.bayzat.cryptotracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Role extends BaseNamedEntity{
-    @ManyToMany(mappedBy = "role")
+@JsonIgnoreProperties(value = {"users", "createdAt"})
+public class Role extends BaseNamedEntity {
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
     public Role(String name) {
         super(name);
     }
-
-    //todo equals&&hashcode
 }
