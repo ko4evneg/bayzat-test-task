@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class EntityController<E extends BaseNamedEntity, T extends BaseNamedTo> {
+public abstract class AbstractEntityController<E extends BaseNamedEntity, T extends BaseNamedTo> {
     protected CrudService<E, T> service;
     @Autowired
     protected ModelMapper mapper;

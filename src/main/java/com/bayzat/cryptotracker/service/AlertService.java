@@ -18,7 +18,6 @@ import static com.bayzat.cryptotracker.model.AlertStatus.NEW;
 @Service
 @RequiredArgsConstructor
 public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo> {
-    public static final Role ADMIN_ROLE = new Role("ADMIN");
     private final AlertRepository alertRepository;
     private final AlertValidator alertValidator;
 
@@ -37,11 +36,6 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
     }
 
     @Override
-    public Alert find(Long id) {
-        return findOwned(id);
-    }
-
-    @Override
     public List<Alert> findAllOwned() {
         return alertRepository.findAllByUser_Id(getActiveUser().getId());
     }
@@ -56,8 +50,17 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         deleteOwned(id);
     }
 
-    public void cancel(Long id) {
+    public void cancelOwned(Long id) {
         Alert alert = findOwned(id);
+        changeStatus(id, alert);
+    }
+
+    public void cancel(Long id) {
+        Alert alert = find(id);
+        changeStatus(id, alert);
+    }
+
+    private void changeStatus(Long id, Alert alert) {
         if (NEW.equals(alert.getStatus())) {
             alert.setStatus(CANCELLED);
             save(alert, id);

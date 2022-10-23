@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 @RestController
 @RequestMapping(value = "api/v1/currencies")
 @RequiredArgsConstructor
-public class CurrencyController extends EntityController<Currency, CurrencyTo> {
+public class CurrencyController extends AbstractEntityController<Currency, CurrencyTo> {
     private final CurrencyService currencyService;
 
     @PostConstruct
