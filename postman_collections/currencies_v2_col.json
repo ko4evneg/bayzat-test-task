@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "558fad87-1eb4-444c-86f3-cab15467008a",
+		"name": "Currencies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24023017"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/currencies"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/currencies/2"
+			},
+			"response": []
+		},
+		{
+			"name": "post",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ruble\",\r\n    \"symbol\": \"RUB\",\r\n    \"currentPrice\": 0.64,\r\n    \"enabled\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/currencies/"
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"KARB\",\r\n    \"symbol\": \"KAR\",\r\n    \"currentPrice\": 422.5,\r\n    \"enabled\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/currencies/5"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentPrice\": 0.65\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/currencies/10"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJpc3MiOiJCYXl6YXQgbG5jLiIsInVzZXIiOiJ7XCJpZFwiOjEsXCJjcmVhdGVkQXRcIjoxNjY2NTI4NDcxOTQ0LFwicm9sZXNcIjpbe1wiaWRcIjoyLFwibmFtZVwiOlwiQURNSU5cIn0se1wiaWRcIjoxLFwibmFtZVwiOlwiVVNFUlwifV0sXCJ1c2VybmFtZVwiOlwiYWRtaW5cIn0iLCJpYXQiOjE2NjY1Mjg1MDN9.kLX-lFUma6xx1sVKxHVdpU9zBzcvzFdjV_B_FtlMfrA"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

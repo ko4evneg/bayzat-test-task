@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "e04202a4-2750-45c9-b18b-42b5a5c4d4d5",
+		"name": "Alerts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24023017"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/alerts"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/alerts/3"
+			},
+			"response": []
+		},
+		{
+			"name": "cancel",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/alerts/3/cancel"
+			},
+			"response": []
+		},
+		{
+			"name": "ack",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/alerts/3/acknowledge"
+			},
+			"response": []
+		},
+		{
+			"name": "del",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/alerts/3"
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"bnb alert\",\r\n    \"currencyId\": 4,\r\n    \"targetPrice\": 271.71\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/alerts/3"
+			},
+			"response": []
+		},
+		{
+			"name": "post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"rubalert\",\r\n    \"currencyId\": 3,\r\n    \"targetPrice\": 0.66\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/alerts"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"targetPrice\": 0.67\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/alerts/3"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJpc3MiOiJCYXl6YXQgbG5jLiIsInVzZXIiOiJ7XCJpZFwiOjMsXCJjcmVhdGVkQXRcIjoxNjY2NTQxMzIzNTM0LFwicm9sZXNcIjpbe1wiaWRcIjoxLFwibmFtZVwiOlwiVVNFUlwifV0sXCJ1c2VybmFtZVwiOlwidXNlcjJcIn0iLCJpYXQiOjE2NjY1NDE0MzN9.shNR0N22tNhb8BO-vrS3eP-ugwXU8bINy_1MFkMsrzs"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "0f3fd688-2765-4449-9d50-371c9f2e8eb2",
+		"name": "Admin alerts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24023017"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/admin/alerts"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/v1/admin/alerts/2"
+			},
+			"response": []
+		},
+		{
+			"name": "del",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/admin/alerts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"changed Alert\",\r\n    \"currencyId\": 4,\r\n    \"targetPrice\": 271.71\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/admin/alerts/2"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"targetPrice\":  108\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/admin/alerts/2"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJpc3MiOiJCYXl6YXQgbG5jLiIsInVzZXIiOiJ7XCJpZFwiOjEsXCJjcmVhdGVkQXRcIjoxNjY2NTI4NDcxOTQ0LFwicm9sZXNcIjpbe1wiaWRcIjoyLFwibmFtZVwiOlwiQURNSU5cIn0se1wiaWRcIjoxLFwibmFtZVwiOlwiVVNFUlwifV0sXCJ1c2VybmFtZVwiOlwiYWRtaW5cIn0iLCJpYXQiOjE2NjY1Mjg1MDN9.kLX-lFUma6xx1sVKxHVdpU9zBzcvzFdjV_B_FtlMfrA"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
