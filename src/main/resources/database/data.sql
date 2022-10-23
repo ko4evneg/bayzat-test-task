@@ -26,7 +26,7 @@ VALUES (1, 1),
        (3, 1),
        (4, 1);
 
-INSERT INTO alerts (name, currency_id, user_id, target_price, status, created_at)
-VALUES ('BTC alert', 1, 2, 20139, 'NEW', CURRENT_TIMESTAMP),
-       ('TRON alert', 8, 2, 0.06, 'NEW', CURRENT_TIMESTAMP),
-       ('BTC alert', 1, 3, 20200, 'NEW', CURRENT_TIMESTAMP);
+INSERT INTO alerts (name, currency_id, user_id, target_price, status, target_is_more, created_at)
+VALUES ('BTC alert', 1, 2, 20139, 'NEW', TRUE, CURRENT_TIMESTAMP),
+       ('TRON alert', 8, 2, 0.06, 'NEW', FALSE, CURRENT_TIMESTAMP),
+       ('BTC alert', 1, 3, 20200, 'NEW', TRUE, CURRENT_TIMESTAMP);

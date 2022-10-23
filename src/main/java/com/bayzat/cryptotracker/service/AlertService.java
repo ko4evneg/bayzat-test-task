@@ -1,18 +1,17 @@
 package com.bayzat.cryptotracker.service;
 
-import com.bayzat.cryptotracker.exception.WrongStateException;
 import com.bayzat.cryptotracker.model.Alert;
-import com.bayzat.cryptotracker.model.Role;
 import com.bayzat.cryptotracker.model.to.AlertTo;
 import com.bayzat.cryptotracker.repository.AlertRepository;
 import com.bayzat.cryptotracker.service.validation.AlertValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.List;
 
-import static com.bayzat.cryptotracker.model.AlertStatus.CANCELLED;
 import static com.bayzat.cryptotracker.model.AlertStatus.NEW;
 
 @Service
@@ -20,6 +19,7 @@ import static com.bayzat.cryptotracker.model.AlertStatus.NEW;
 public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo> {
     private final AlertRepository alertRepository;
     private final AlertValidator alertValidator;
+    private final CurrencyService currencyService;
 
     @PostConstruct
     public void init() {
@@ -32,7 +32,13 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         if (alert.getStatus() == null) {
             alert.setStatus(NEW);
         }
+        alert.calculateIfTargetIsMore(getCurrencyCurrentPrice(alert));
         return super.saveNew(alert);
+    }
+
+    private BigDecimal getCurrencyCurrentPrice(Alert alert) {
+        Long currencyId = alert.getCurrency().getId();
+        return currencyService.find(currencyId).getCurrentPrice();
     }
 
     @Override
@@ -40,23 +46,20 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         return alertRepository.findAllByUser_Id(getActiveUser().getId());
     }
 
+    @Override
+    public Alert update(Alert alert, Long id) {
+        alert.calculateIfTargetIsMore(getCurrencyCurrentPrice(alert));
+        return super.update(alert, id);
+    }
+
+    @Transactional
     public void cancelOwned(Long id) {
-        Alert alert = findOwned(id);
-        changeStatus(id, alert);
+        findOwned(id).cancel();
     }
 
+    @Transactional
     public void cancel(Long id) {
-        Alert alert = find(id);
-        changeStatus(id, alert);
-    }
-
-    private void changeStatus(Long id, Alert alert) {
-        if (NEW.equals(alert.getStatus())) {
-            alert.setStatus(CANCELLED);
-            save(alert, id);
-        } else {
-            throw new WrongStateException("Alert must have a new state!");
-        }
+        find(id).cancel();
     }
 
     @Override
