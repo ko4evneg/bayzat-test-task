@@ -46,15 +46,28 @@ public class Alert extends BaseNamedEntity implements OwnedEntity {
     private BigDecimal targetPrice;
 
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     @Column(name = "target_is_more")
-    private Boolean targetIsMore;
+    private Boolean upperDirection;
 
     @Enumerated(value = EnumType.STRING)
     private AlertStatus status;
 
-    public void calculateIfTargetIsMore(BigDecimal currentPrice) {
+    public void setThresholdEvaluationDirection() {
         //todo: equals edge-case should be discussed with business analyst
-        targetIsMore = targetPrice.compareTo(currentPrice) > 0;
+        upperDirection = targetPrice.compareTo(currency.getCurrentPrice()) > 0;
+    }
+
+    public Boolean isUpperDirection() {
+        return upperDirection;
+    }
+
+    public boolean wasThresholdHit() {
+        BigDecimal currentPrice = currency.getCurrentPrice();
+
+        //todo: equals edge-case should be discussed with business analyst
+        return currentPrice.compareTo(targetPrice) >= 0 && upperDirection ||
+                currentPrice.compareTo(targetPrice) < 0 && !upperDirection;
     }
 
     public void cancel() {

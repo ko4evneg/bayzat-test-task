@@ -13,30 +13,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AlertTest {
 
     @Test
-    public void upperThresholdSetTrue() {
+    public void directionSetFalse() {
         Alert alert = new Alert();
         alert.setTargetPrice(new BigDecimal("50"));
-        alert.calculateIfTargetIsMore(new BigDecimal("49.99999"));
+        alert.setCurrency(getCurrency("66"));
+        alert.setThresholdEvaluationDirection();
 
-        assertTrue(alert.getTargetIsMore());
+        assertFalse(alert.isUpperDirection());
     }
 
     @Test
-    public void upperThresholdSetFalse() {
+    public void directionSetTrue() {
         Alert alert = new Alert();
-        alert.setTargetPrice(new BigDecimal("49.99999"));
-        alert.calculateIfTargetIsMore(new BigDecimal("50"));
+        alert.setTargetPrice(new BigDecimal("50"));
+        alert.setCurrency(getCurrency("49.99999"));
+        alert.setThresholdEvaluationDirection();
 
-        assertFalse(alert.getTargetIsMore());
+        assertTrue(alert.isUpperDirection());
     }
 
     @Test
-    public void upperThresholdBorderCaseSetFalse() {
+    public void directionSetFalseOnBorderCase() {
         Alert alert = new Alert();
-        alert.setTargetPrice(new BigDecimal(50));
-        alert.calculateIfTargetIsMore(new BigDecimal(50));
+        alert.setTargetPrice(new BigDecimal("50"));
+        alert.setCurrency(getCurrency("50"));
+        alert.setThresholdEvaluationDirection();
 
-        assertFalse(alert.getTargetIsMore());
+        assertFalse(alert.isUpperDirection());
     }
 
     @Test
@@ -61,5 +64,43 @@ public class AlertTest {
         alert.cancel();
 
         assertEquals(AlertStatus.CANCELLED, alert.getStatus());
+    }
+
+    @Test
+    public void largerThresholdWasHit() {
+        Alert alert = new Alert();
+        alert.setCurrency(getCurrency("19"));
+        alert.setTargetPrice(new BigDecimal("20.3"));
+        alert.setThresholdEvaluationDirection();
+        alert.setCurrency(getCurrency("20.3001"));
+
+        assertTrue(alert.wasThresholdHit());
+    }
+
+    @Test
+    public void smallerThresholdWasHit() {
+        Alert alert = new Alert();
+        alert.setCurrency(getCurrency("30"));
+        alert.setTargetPrice(new BigDecimal("20.3"));
+        alert.setThresholdEvaluationDirection();
+        alert.setCurrency(getCurrency("20.2999"));
+
+        assertTrue(alert.wasThresholdHit());
+    }
+
+    @Test
+    public void noThresholdThrows() {
+        Alert alert = new Alert();
+        alert.setCurrency(getCurrency("30"));
+        alert.setTargetPrice(new BigDecimal("20.3"));
+        alert.setCurrency(getCurrency("20.2999"));
+
+        assertThrows(NullPointerException.class, alert::wasThresholdHit);
+    }
+
+    private Currency getCurrency(String currentPrice) {
+        Currency currency = new Currency();
+        currency.setCurrentPrice(new BigDecimal(currentPrice));
+        return currency;
     }
 }

@@ -32,7 +32,7 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         if (alert.getStatus() == null) {
             alert.setStatus(NEW);
         }
-        alert.calculateIfTargetIsMore(getCurrencyCurrentPrice(alert));
+        alert.setThresholdEvaluationDirection();
         return super.saveNew(alert);
     }
 
@@ -48,7 +48,7 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
 
     @Override
     public Alert update(Alert alert, Long id) {
-        alert.calculateIfTargetIsMore(getCurrencyCurrentPrice(alert));
+        alert.setThresholdEvaluationDirection();
         return super.update(alert, id);
     }
 
