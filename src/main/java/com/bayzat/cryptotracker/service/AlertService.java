@@ -30,7 +30,9 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
     @Override
     public Alert saveNew(Alert alert) {
         alertValidator.validate(alert);
-        alert.setStatus(NEW);
+        if (alert.getStatus() == null) {
+            alert.setStatus(NEW);
+        }
         return super.saveNew(alert);
     }
 
@@ -58,8 +60,9 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         Alert alert = findOwned(id);
         if (NEW.equals(alert.getStatus())) {
             alert.setStatus(CANCELLED);
+            save(alert, id);
         } else {
-            throw new WrongStateException("Alert must not be triggered yet!");
+            throw new WrongStateException("Alert must have a new state!");
         }
     }
 

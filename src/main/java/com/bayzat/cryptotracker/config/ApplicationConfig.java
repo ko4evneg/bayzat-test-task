@@ -19,6 +19,7 @@ public class ApplicationConfig {
 
         TypeMap<AlertTo, Alert> alertTypeMap = modelMapper.createTypeMap(AlertTo.class, Alert.class);
         alertTypeMap.addMappings(mapper -> mapper.skip(Alert::setId));
+        alertTypeMap.addMappings(mapper -> mapper.skip(Alert::setStatus));
 
         return modelMapper;
     }

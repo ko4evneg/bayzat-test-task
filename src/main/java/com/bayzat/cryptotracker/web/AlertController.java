@@ -6,6 +6,8 @@ import com.bayzat.cryptotracker.service.AlertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +25,8 @@ public class AlertController extends AbstractOwnedEntityController<Alert, AlertT
         ownedEntityCrudService = alertService;
     }
 
-    public ResponseEntity<?> cancel(Long id) {
+    @PatchMapping("{id}/cancel")
+    public ResponseEntity<?> cancel(@PathVariable Long id) {
         alertService.cancel(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
