@@ -17,8 +17,10 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import static com.bayzat.cryptotracker.model.AlertStatus.ACKED;
 import static com.bayzat.cryptotracker.model.AlertStatus.CANCELLED;
 import static com.bayzat.cryptotracker.model.AlertStatus.NEW;
+import static com.bayzat.cryptotracker.model.AlertStatus.TRIGGERED;
 
 @Entity
 @Table(name = "alerts")
@@ -66,7 +68,8 @@ public class Alert extends BaseNamedEntity implements OwnedEntity {
         BigDecimal currentPrice = currency.getCurrentPrice();
 
         //todo: equals edge-case should be discussed with business analyst
-        return currentPrice.compareTo(targetPrice) >= 0 && upperDirection ||
+        return TRIGGERED.equals(status) ||
+                currentPrice.compareTo(targetPrice) >= 0 && upperDirection ||
                 currentPrice.compareTo(targetPrice) < 0 && !upperDirection;
     }
 
@@ -76,6 +79,22 @@ public class Alert extends BaseNamedEntity implements OwnedEntity {
         } else {
             throw new WrongStateException("Alert must have a new state!");
         }
+    }
+
+    public void acknowledge() {
+        if (TRIGGERED.equals(status)) {
+            status = ACKED;
+        } else {
+            throw new WrongStateException("Alert must have a triggered state!");
+        }
+    }
+
+    public boolean isAcknowledged() {
+        return ACKED.equals(status);
+    }
+
+    public boolean isCancelled() {
+        return CANCELLED.equals(status);
     }
 
     @Override

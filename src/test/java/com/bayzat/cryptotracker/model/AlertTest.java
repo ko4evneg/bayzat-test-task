@@ -67,6 +67,30 @@ public class AlertTest {
     }
 
     @Test
+    public void acknowledgeThrowOnWrongStatus() {
+        Alert alert1 = new Alert();
+        Alert alert2 = new Alert();
+        Alert alert3 = new Alert();
+        alert1.setStatus(AlertStatus.NEW);
+        alert2.setStatus(AlertStatus.CANCELLED);
+        alert3.setStatus(AlertStatus.ACKED);
+
+        assertThrows(WrongStateException.class, alert1::acknowledge);
+        assertThrows(WrongStateException.class, alert2::acknowledge);
+        assertThrows(WrongStateException.class, alert3::acknowledge);
+    }
+
+    @Test
+    public void acknowledgeSetSuccess() {
+        Alert alert = new Alert();
+        alert.setStatus(AlertStatus.TRIGGERED);
+
+        alert.acknowledge();
+
+        assertEquals(AlertStatus.ACKED, alert.getStatus());
+    }
+
+    @Test
     public void largerThresholdWasHit() {
         Alert alert = new Alert();
         alert.setCurrency(getCurrency("19"));

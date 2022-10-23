@@ -30,4 +30,10 @@ public class AlertController extends AbstractOwnedEntityController<Alert, AlertT
         alertService.cancelOwned(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+    @PatchMapping("{id}/acknowledge")
+    public ResponseEntity<?> acknowledge(@PathVariable Long id) {
+        alertService.acknowledgeOwned(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
 }

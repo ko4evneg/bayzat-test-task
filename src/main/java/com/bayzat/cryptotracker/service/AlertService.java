@@ -1,6 +1,7 @@
 package com.bayzat.cryptotracker.service;
 
 import com.bayzat.cryptotracker.model.Alert;
+import com.bayzat.cryptotracker.model.Currency;
 import com.bayzat.cryptotracker.model.to.AlertTo;
 import com.bayzat.cryptotracker.repository.AlertRepository;
 import com.bayzat.cryptotracker.service.validation.AlertValidator;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static com.bayzat.cryptotracker.model.AlertStatus.NEW;
@@ -32,14 +32,15 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         if (alert.getStatus() == null) {
             alert.setStatus(NEW);
         }
+        alert.setCurrency(getCurrencyById(alert));
         alert.setThresholdEvaluationDirection();
         return super.saveNew(alert);
     }
 
-    private BigDecimal getCurrencyCurrentPrice(Alert alert) {
-        Long currencyId = alert.getCurrency().getId();
-        return currencyService.find(currencyId).getCurrentPrice();
+    private Currency getCurrencyById(Alert alert) {
+        return currencyService.find(alert.getCurrency().getId());
     }
+
 
     @Override
     public List<Alert> findAllOwned() {
@@ -48,6 +49,7 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
 
     @Override
     public Alert update(Alert alert, Long id) {
+        alert.setCurrency(getCurrencyById(alert));
         alert.setThresholdEvaluationDirection();
         return super.update(alert, id);
     }
@@ -55,6 +57,11 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
     @Transactional
     public void cancelOwned(Long id) {
         findOwned(id).cancel();
+    }
+
+    @Transactional
+    public void acknowledgeOwned(Long id) {
+        findOwned(id).acknowledge();
     }
 
     @Transactional

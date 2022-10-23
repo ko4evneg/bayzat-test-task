@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public abstract class AbstractOwnedEntityController<E extends BaseNamedEntity & OwnedEntity, T extends BaseNamedTo> extends AbstractEntityController<E, T> {
+public abstract class AbstractOwnedEntityController<E extends BaseNamedEntity & OwnedEntity, T extends BaseNamedTo>
+        extends AbstractEntityController<E, T> {
     protected AbstractOwnedEntityCrudService<E, T> ownedEntityCrudService;
 
     @Override
