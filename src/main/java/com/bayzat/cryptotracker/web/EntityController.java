@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Collection;
 import java.util.List;
 
-public class EntityController<E extends BaseNamedEntity, T extends BaseNamedTo> {
+public abstract class EntityController<E extends BaseNamedEntity, T extends BaseNamedTo> {
     protected CrudService<E, T> service;
     @Autowired
     protected ModelMapper mapper;
@@ -35,20 +35,20 @@ public class EntityController<E extends BaseNamedEntity, T extends BaseNamedTo> 
 
     @PostMapping
     public ResponseEntity<?> saveNew(@RequestBody T to) {
-        E savedCurrency = service.saveNew(mapToEntity(to, service.getEntityType()));
-        return getOkResponse(savedCurrency);
+        E savedEntity = service.saveNew(mapToEntity(to, service.getEntityType()));
+        return getOkResponse(savedEntity);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<?> save(@RequestBody T to, @PathVariable Long id) {
-        E savedCurrency = service.save(mapToEntity(to, service.getEntityType()), id);
-        return getOkResponse(savedCurrency);
+        E savedEntity = service.save(mapToEntity(to, service.getEntityType()), id);
+        return getOkResponse(savedEntity);
     }
 
     @PatchMapping("{id}")
     public ResponseEntity<?> update(@RequestBody T to, @PathVariable Long id) {
-        E savedCurrency = service.update(mapToEntity(to, service.getEntityType()), id);
-        return getOkResponse(savedCurrency);
+        E savedEntity = service.update(mapToEntity(to, service.getEntityType()), id);
+        return getOkResponse(savedEntity);
     }
 
     @DeleteMapping("{id}")
