@@ -33,23 +33,23 @@ public abstract class AbstractCrudService<E extends BaseEntity, T extends BaseTo
     }
 
     @Override
-    public E save(E currency, Long id) {
-        findIfExists(id);
-        currency.setId(id);
-        currency.setCreatedAt(new Date());
-        return saveNew(currency);
+    public E save(E entity, Long id) {
+        find(id);
+        entity.setId(id);
+        entity.setCreatedAt(new Date());
+        return saveNew(entity);
     }
 
     @Override
-    public E update(E updatedCurrency, Long id) {
-        E currency = findIfExists(id);
-        mapper.map(updatedCurrency, currency);
-        return repository.save(currency);
+    public E update(E updatedEntity, Long id) {
+        E entity = find(id);
+        mapper.map(updatedEntity, entity);
+        return repository.save(entity);
     }
 
     @Override
     public void delete(Long id) {
-        findIfExists(id);
+        find(id);
         repository.deleteById(id);
     }
 
@@ -61,10 +61,5 @@ public abstract class AbstractCrudService<E extends BaseEntity, T extends BaseTo
     @Override
     public Class<E> getEntityType() {
         throw new CryptoTrackerException("Operation not supported!");
-    }
-
-    private E findIfExists(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }

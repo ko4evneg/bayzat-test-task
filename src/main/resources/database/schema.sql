@@ -40,10 +40,11 @@ CREATE TABLE user_role
 CREATE TABLE alerts
 (
     id           SERIAL PRIMARY KEY,
-    name         VARCHAR(100) UNIQUE                NOT NULL,
+    name         VARCHAR(100)                       NOT NULL,
     currency_id  INTEGER REFERENCES currencies (id) NOT NULL,
     user_id      INTEGER REFERENCES users (id)      NOT NULL,
     target_price DECIMAL(20, 10)                    NOT NULL,
     status       VARCHAR(20)                        NOT NULL,
-    created_at   TIMESTAMP WITH TIME ZONE           NOT NULL
+    created_at   TIMESTAMP WITH TIME ZONE           NOT NULL,
+    CONSTRAINT unique_alert UNIQUE (user_id, currency_id, target_price)
 );
