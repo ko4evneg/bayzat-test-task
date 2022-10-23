@@ -33,7 +33,7 @@ class CryptoTrackerApplicationTests {
 
     @Test
     void initialSqlScriptsMappedToModelSuccess() {
-        Role expectedRole = new Role("ADMIN");
+        Role expectedRole = new Role("TESTROLE");
         User expectedUser = new User("testUser", "pwd", Set.of(expectedRole));
         Currency expectedCurrency = new Currency("TestCoin", "TTC",
                 new BigDecimal("123456789.123456".toCharArray()), true);
