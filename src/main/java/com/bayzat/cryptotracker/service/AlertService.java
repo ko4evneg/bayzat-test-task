@@ -32,13 +32,13 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         if (alert.getStatus() == null) {
             alert.setStatus(NEW);
         }
-        alert.setCurrency(getCurrencyById(alert));
+        alert.setCurrency(getCurrencyById(alert.getCurrency().getId()));
         alert.setThresholdEvaluationDirection();
         return super.saveNew(alert);
     }
 
-    private Currency getCurrencyById(Alert alert) {
-        return currencyService.find(alert.getCurrency().getId());
+    private Currency getCurrencyById(Long id) {
+        return currencyService.find(id);
     }
 
 
@@ -49,7 +49,7 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
 
     @Override
     public Alert update(Alert alert, Long id) {
-        alert.setCurrency(getCurrencyById(alert));
+        alert.setCurrency(getCurrencyById(id));
         alert.setThresholdEvaluationDirection();
         return super.update(alert, id);
     }
