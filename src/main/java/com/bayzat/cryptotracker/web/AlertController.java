@@ -4,6 +4,7 @@ import com.bayzat.cryptotracker.model.Alert;
 import com.bayzat.cryptotracker.model.to.AlertTo;
 import com.bayzat.cryptotracker.service.AlertService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
