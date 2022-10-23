@@ -20,7 +20,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Alert extends BaseNamedEntity {
+public class Alert extends BaseNamedEntity implements OwnedEntity{
     public Alert(String name, Currency currency, User user, BigDecimal targetPrice, AlertStatus status) {
         super(name);
         this.currency = currency;
