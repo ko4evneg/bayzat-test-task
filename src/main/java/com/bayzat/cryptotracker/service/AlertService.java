@@ -40,16 +40,6 @@ public class AlertService extends AbstractOwnedEntityCrudService<Alert, AlertTo>
         return alertRepository.findAllByUser_Id(getActiveUser().getId());
     }
 
-    @Override
-    public Alert update(Alert updatedEntity, Long id) {
-        return updateOwned(updatedEntity, id);
-    }
-
-    @Override
-    public void delete(Long id) {
-        deleteOwned(id);
-    }
-
     public void cancelOwned(Long id) {
         Alert alert = findOwned(id);
         changeStatus(id, alert);

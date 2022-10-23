@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class invoke services without any authorization handling, it must be used only for all-users available APIs.
+ * For authorization-aware services calling controller <java>AbstractOwnedEntityController</java> must be used or
+ * authorization must be implemented by the developer.
+ */
 public abstract class AbstractEntityController<E extends BaseNamedEntity, T extends BaseNamedTo> {
     protected CrudService<E, T> service;
     @Autowired
