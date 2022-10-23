@@ -2,6 +2,7 @@ package com.bayzat.cryptotracker.web;
 
 import com.bayzat.cryptotracker.exception.ResourceNotFoundException;
 import com.bayzat.cryptotracker.exception.SecurityAppException;
+import com.bayzat.cryptotracker.exception.WrongStateException;
 import com.bayzat.cryptotracker.exception.to.ApplicationError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,12 @@ public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(value = SecurityAppException.class)
     public ResponseEntity<?> handleSecurityException(SecurityException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = WrongStateException.class)
+    public ResponseEntity<?> handleByDefault(WrongStateException exception) {
+        ApplicationError applicationError = new ApplicationError(HttpStatus.BAD_REQUEST, exception.getMessage(), new Date());
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
